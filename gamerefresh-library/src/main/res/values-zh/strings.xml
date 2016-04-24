@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GameRefresh-library</string>
+
+    <string name="game_over">游戏结束</string>
+    <string name="loading">加载中...</string>
+    <string name="loading_finished">加载完成</string>
+    <string name="mask_top">下拉刷新，松开游戏</string>
+    <string name="mask_bottom">滑动屏幕进行游戏</string>
+</resources>

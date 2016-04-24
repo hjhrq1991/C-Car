@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CommonView</string>
+
+    <string name="data_loading">正在加载中\u2026.</string>
+    <string name="footer_hint_normal">查看更多</string>
+</resources>

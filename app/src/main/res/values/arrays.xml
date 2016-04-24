@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="title_text">
+        <item>全部</item>
+        <item>加油</item>
+        <item>洗车</item>
+        <item>停车</item>
+        <item>过路</item>
+        <item>违章</item>
+        <item>保险</item>
+        <item>维修</item>
+        <item>贷款</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>加油</item>
+        <item>洗车</item>
+        <item>停车</item>
+        <item>过路</item>
+        <item>违章</item>
+        <item>保险</item>
+        <item>维修</item>
+        <item>贷款</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="second_gas_title">
+        <item>不显示第二种油价</item>
+        <item>0号柴油</item>
+        <item>90号汽油</item>
+        <item>97号汽油</item>
+    </string-array>
+
+    <string-array name="second_gas_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string name="choose_second_gas">请选择需显示的油价</string>
+    <string name="defalue_other_gas">97号汽油</string>
+
+    <string name="gas_0">0#柴油：￥%s</string>
+    <string name="gas_89">89汽油：￥%s</string>
+    <string name="gas_90">90汽油：￥%s</string>
+    <string name="gas_92">92汽油：￥%s</string>
+    <string name="gas_93">93汽油：￥%s</string>
+    <string name="gas_95">95汽油：￥%s</string>
+    <string name="gas_97">97汽油：￥%s</string>
+
+</resources>

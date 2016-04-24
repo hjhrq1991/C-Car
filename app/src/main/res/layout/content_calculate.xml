@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/fab_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:gravity="center"
+        android:text="@string/calculate_title"
+        android:textSize="20.0sp" />
+
+    <TextView
+        android:id="@+id/calculate_type_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_tv"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_type"
+        android:textSize="16.0sp" />
+
+    <RadioGroup
+        android:id="@+id/calculate_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_tv"
+        android:layout_toRightOf="@+id/calculate_type_tv">
+
+        <RadioButton
+            android:id="@+id/nomal_average"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nomal_average"
+            android:textSize="16.0sp" />
+
+        <RadioButton
+            android:id="@+id/weighted_average"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/weighted_average"
+            android:textSize="16.0sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/total_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calculate_type"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_total"
+        android:textSize="16.0sp" />
+
+    <TextView
+        android:id="@+id/mileage_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/total_tv"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_mileage"
+        android:textSize="16.0sp" />
+
+    <TextView
+        android:id="@+id/oil_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mileage_tv"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_oil" />
+
+    <TextView
+        android:id="@+id/average_price_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/oil_tv"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_average_price"
+        android:textSize="16.0sp" />
+
+    <TextView
+        android:id="@+id/calculate_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/average_price_tv"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_average"
+        android:textSize="16.0sp" />
+
+    <TextView
+        android:id="@+id/spend_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calculate_tv"
+        android:layout_marginTop="8.0dip"
+        android:text="@string/calculate_spend"
+        android:textSize="16.0sp" />
+
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="查询不到加油记录\n请至少添加2条记录"
+        android:textSize="20.0sp"
+        android:visibility="gone" />
+</RelativeLayout>

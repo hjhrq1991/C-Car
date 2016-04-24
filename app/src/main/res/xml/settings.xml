@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="parent">
+
+    <PreferenceCategory>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="setting_use_GB"
+            android:persistent="true"
+            android:summaryOff="不使用国标"
+            android:summaryOn="使用国标"
+            android:title="汽油标号是否使用国标" />
+
+        <ListPreference
+            android:defaultValue="@string/defalue_other_gas"
+            android:dialogTitle="@string/choose_second_gas"
+            android:entries="@array/second_gas_title"
+            android:entryValues="@array/second_gas_value"
+            android:key="setting_second_gas"
+            android:persistent="true"
+            android:summary="默认显示93汽油，点击设置第二种油价"
+            android:title="@string/choose_second_gas" />
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="setting_calculate"
+            android:persistent="true"
+            android:summaryOff="使用普通平均法"
+            android:summaryOn="使用加权平均法"
+            android:title="油耗默认计算方式" />
+
+        <Preference
+            android:key="setting_set_city"
+            android:title="设置城市" />
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <Preference
+            android:key="setting_about"
+            android:title="关于" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

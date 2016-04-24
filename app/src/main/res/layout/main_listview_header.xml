@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimary">
+
+    <ImageView
+        android:id="@+id/weather_img"
+        android:layout_width="match_parent"
+        android:layout_height="180.0dip"
+        android:background="@color/bg_gray_white"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        app:layout_collapseMode="parallax" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="180.0dip"
+        android:background="@color/bg_gray_white"
+        android:visibility="gone"
+        app:layout_collapseMode="parallax" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="180.0dip"
+        android:fitsSystemWindows="true"
+        android:paddingTop="?actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tmp_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/weather"
+                    android:layout_alignTop="@+id/weather"
+                    android:layout_toRightOf="@+id/weather"
+                    android:gravity="center_vertical"
+                    android:text="天气：--\n温度：--℃"
+                    android:textColor="@color/white"
+                    android:textSize="18.0sp" />
+
+                <ImageView
+                    android:id="@+id/weather"
+                    android:layout_width="72.0dip"
+                    android:layout_height="72.0dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:scaleType="centerInside"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/hum_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="相对湿度：--%"
+                    android:textColor="@color/white"
+                    android:textSize="18.0sp" />
+
+                <TextView
+                    android:id="@+id/suggest_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hum_tv"
+                    android:gravity="center_vertical"
+                    android:text="洗车指数：--"
+                    android:textColor="@color/white"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:padding="10.0dip"
+            android:text="当前城市：北京"
+            android:textColor="@color/white"
+            android:textSize="16.0sp" />
+
+        <com.hjhrq1991.commonview.widget.StrokeTextView
+            android:id="@+id/oil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:padding="10.0dip"
+            android:text="92汽油：￥--"
+            android:textColor="@color/white"
+            android:textSize="16.0sp"
+            app:StrokeColor="@color/bg_gray_white"
+            app:StrokeWidth="0.0dip" />
+    </RelativeLayout>
+</FrameLayout>

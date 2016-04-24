@@ -1,0 +1,54 @@
+ext {
+    //
+    android = [
+            compileSdkVersion: 23,
+            buildToolsVersion: "23.0.2",
+            minSdkVersion    : 14,
+            targetSdkVersion : 23,
+            versionCode      : 10004,
+            versionName      : "1.0.4"
+    ]
+
+    library = [
+            compileSdkVersion: 22,
+            buildToolsVersion: "22.0.1",
+            minSdkVersion    : 14,
+            targetSdkVersion : 22
+    ]
+
+    dependencies = [
+            //系统
+            palette_v7                  : 'com.android.support:palette-v7:22.2.1',
+            appcompat_v7_23             : 'com.android.support:appcompat-v7:23.1.1',
+            appcompat_v7_22             : 'com.android.support:appcompat-v7:22.2.1',
+            support_v4                  : 'com.android.support:support-v4:22.0.0',
+            design                      : 'com.android.support:design:23.1.1',
+            recyclerview                : 'com.android.support:recyclerview-v7:23.1.1',
+            cardview                    : 'com.android.support:cardview-v7:23.1.1',
+            multidex                    : 'com.android.support:multidex:1.0.1',//分包
+
+            //第三方工具
+            umeng_analytics             : 'com.umeng.analytics:analytics:latest.integration',
+            MPAndroidChart              : 'com.github.PhilJay:MPAndroidChart:v2.2.2',
+            butterknife                 : 'com.jakewharton:butterknife:7.0.1',
+            swipeback                   : 'com.hannesdorfmann:swipeback:1.0.0',
+            eventbus                    : 'org.greenrobot:eventbus:3.0.0',
+            glide                       : 'com.github.bumptech.glide:glide:3.7.0',
+            gif_drawable                : 'pl.droidsonroids.gif:android-gif-drawable:1.1.+',
+            selectableroundedimageview  : 'com.joooonho:selectableroundedimageview:1.0.1',
+            grid_view_with_header_footer: 'in.srain.cube:grid-view-with-header-footer:1.0.12',
+            ratiolayout                 : 'net.soulwolf.widget:ratiolayout:1.0.0',
+//            eventbus                    : 'de.greenrobot:eventbus:3.0.0-beta1',
+            horizontallistview          : 'it.sephiroth.android.library.horizontallistview:hlistview:1.2.2',
+            nuwa                        : 'cn.jiajixin.nuwa:nuwa:1.0.0',
+            materialdialog              : 'me.drakeet.materialdialog:library:1.3.0',
+            zxing                       : 'com.google.zxing:core:3.2.1',
+            httpclient                  : 'cz.msebera.android:httpclient:4.3.6',
+            //内存泄露检测工具
+            debugleakcanary             : 'com.squareup.leakcanary:leakcanary-android:1.4-beta2',
+            releaseleakcanary           : 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2',
+            testleakcanary              : 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2',
+    ]
+
+
+}

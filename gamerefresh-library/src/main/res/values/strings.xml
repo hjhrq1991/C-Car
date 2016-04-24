@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GameRefresh-library</string>
+
+    <string name="game_over">Game Over</string>
+    <string name="loading">Loading...</string>
+    <string name="loading_finished">Loading Finished</string>
+    <string name="mask_top">Pull to Break Out!</string>
+    <string name="mask_bottom">Scrooll to move handle</string>
+</resources>

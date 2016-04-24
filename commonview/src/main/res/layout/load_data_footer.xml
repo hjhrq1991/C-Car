@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/footView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:minHeight="48dp"
+    android:orientation="horizontal"
+    android:visibility="visible">
+
+    <!-- 此为公共footerview，不要轻易修改 -->
+
+    <ProgressBar
+        android:id="@+id/progress_more"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/progress_text"
+        android:maxHeight="32dip"
+        android:maxWidth="32dip"
+        android:minHeight="32dip"
+        android:minWidth="32dip"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="@string/footer_hint_normal"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/img_not_net_work_guid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon_details"
+        android:visibility="gone" />
+
+</RelativeLayout>

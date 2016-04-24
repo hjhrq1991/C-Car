@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="64dp"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/ig_left_arrow"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerCrop"
+
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/swipeback_arrow_left"/>
+
+    <com.hannesdorfmann.swipeback.view.VerticalTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:gravity="bottom|right"
+        android:layout_centerHorizontal="true"
+
+        android:layout_below="@id/ig_left_arrow"
+        style="@style/swipeBackText"
+        android:layout_gravity="center"
+        android:text="@string/return_label"
+        />
+
+
+    <ImageView
+        android:layout_marginTop="16dp"
+
+        android:layout_below="@id/text"
+        android:layout_centerHorizontal="true"
+
+        android:scaleType="centerCrop"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/swipeback_arrow_left"/>
+
+
+</RelativeLayout>

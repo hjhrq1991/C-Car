@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- FunGameHeader -->
+    <declare-styleable name="FunGameHeader">
+        <attr name="game_type" format="enum">
+            <enum name="hit_block_game" value="0" />
+            <enum name="battle_city_game" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <!-- FunGameView -->
+    <declare-styleable name="FunGame">
+        <attr name="left_model_color" format="color" />
+        <attr name="middle_model_color" format="color" />
+        <attr name="right_model_color" format="color" />
+    </declare-styleable>
+
+    <!-- HitBlockView -->
+    <declare-styleable name="HitBlock">
+        <attr name="block_horizontal_num" format="integer" />
+        <attr name="ball_speed" format="integer">
+            <enum name="low" value="3" />
+            <enum name="medium" value="6" />
+            <enum name="fast" value="9" />
+        </attr>
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="get_oil_price_request">http://apis.baidu.com/showapi_open_bus/oil_price/find</string>
+    <string name="get_weather_request">http://apis.baidu.com/heweather/weather/free</string>
+</resources>

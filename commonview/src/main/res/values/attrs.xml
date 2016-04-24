@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextStyle">
+        <attr name="StrokeColor" format="color" />
+        <attr name="StrokeWidth" format="dimension" />
+    </declare-styleable>
+
+</resources>

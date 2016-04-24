@@ -1,0 +1,143 @@
+apply plugin: 'com.android.application'
+//lambda插件
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        def Properties localProps = new Properties()
+        localProps.load(new FileInputStream(file('../local.properties')))
+        def Properties keyProps = new Properties()
+
+        // 如果读取不到'keystore.props.file'属性，就使用debug keystore签名
+        if (localProps['keystore.props.file']) {
+            keyProps.load(new FileInputStream(file(localProps['keystore.props.file'])))
+        } else {
+            keyProps["store"] = '../buildsystem/debug.keystore'
+            keyProps["alias"] = 'androiddebugkey'
+            keyProps["storePass"] = 'android'
+            keyProps["pass"] = 'android'
+        }
+
+        debug {
+            storeFile file(keyProps["store"])
+            keyAlias keyProps["alias"]
+            storePassword keyProps["storePass"]
+            keyPassword keyProps["pass"]
+        }
+
+//        release {
+//            // release版本使用assert确保存在该属性否则报错，避免错误打包
+//            assert localProps['keystore.props.file'];
+//            storeFile file(keyProps["store"])
+//            keyAlias keyProps["alias"]
+//            storePassword keyProps["storePass"]
+//            keyPassword keyProps["pass"]
+//        }
+
+    }
+
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        applicationId "com.hjhrq1991.car"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        def Properties localProps = new Properties()
+        localProps.load(new FileInputStream(file('../local.properties')))
+
+        manifestPlaceholders = [channelName: "ymtest",
+                                umengkey   : localProps['umengkey'],
+                                jpushkey   : localProps['jpushkey'],
+                                gaodekey   : localProps['gaodekey']]
+        buildConfigField "String", "BaichuanKey", localProps['baichuankey']
+        buildConfigField "String", "ApiKey", localProps['apikey']
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            multiDexEnabled false
+            shrinkResources false
+
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            multiDexEnabled true
+            shrinkResources true
+
+            signingConfig signingConfigs.debug
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/jniLibs'
+    }
+
+    productFlavors {
+        "ymtest" {//测试渠道
+        }
+
+        "youmeng" {//正式渠道
+        }
+
+        "baidu" {//正式渠道
+        }
+
+        "qq" {//正式渠道
+        }
+
+        "360" {//正式渠道
+        }
+
+        "meizu" {//正式渠道
+        }
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [channelName: name]
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile project(':Common')
+    compile project(':activeandroid-library')
+    compile project(':commonview')
+    compile project(':datetimepicker-library')
+    compile files('libs/ApiStoreSDK1.0.4.jar')
+    compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile rootProject.ext.dependencies.appcompat_v7_23
+    compile rootProject.ext.dependencies.design
+    compile rootProject.ext.dependencies.recyclerview
+    compile rootProject.ext.dependencies.cardview
+    compile rootProject.ext.dependencies.umeng_analytics
+    compile rootProject.ext.dependencies.MPAndroidChart
+    debugCompile rootProject.ext.dependencies.debugleakcanary
+    releaseCompile rootProject.ext.dependencies.releaseleakcanary
+    testCompile rootProject.ext.dependencies.testleakcanary
+
+    compile files('libs/AMap_2DMap_V2.8.1_20160202.jar')
+    compile files('libs/AMap_Location_V2.4.0_20160308.jar')
+    compile project(':gamerefresh-library')
+    compile project(':baichuanSDK')
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+}

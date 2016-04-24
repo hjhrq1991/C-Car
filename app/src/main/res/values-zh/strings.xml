@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">C-Car助手</string>
+    <string name="action_calculate">计算油耗</string>
+    <string name="action_form">统计报表</string>
+    <string name="action_more">更多</string>
+    <string name="action_save">保存</string>
+    <string name="action_settings">设置</string>
+    <string name="action_about">关于</string>
+    <string name="action_found">发现</string>
+    <string name="action_location">定位</string>
+
+    <string name="form_pie">饼状图</string>
+    <string name="form_bar">柱状图</string>
+    <string name="form_type">按类型</string>
+    <string name="form_time">月度报表</string>
+
+    <string name="calculate_type">计算方式：</string>
+    <string name="nomal_average">普通平均法</string>
+    <string name="weighted_average">加权平均法</string>
+
+    <string name="calculate_average">平均油耗：%s升/百公里</string>
+    <string name="calculate_average_price">平均油价：%s元</string>
+    <string name="calculate_mileage">共行驶：%s公里</string>
+    <string name="calculate_oil">共加油：%s升</string>
+    <string name="calculate_spend">折算：%s元/公里</string>
+    <string name="calculate_title">截至最后一条记录之前：</string>
+    <string name="calculate_total">共花费：%s元</string>
+    <string name="character_counter_pattern">%1$d / %2$d</string>
+    <string name="data_loading">正在加载中….</string>
+    <string name="date_error">超过当前日期.</string>
+    <string name="delete_or_not">是否要删除该记录?</string>
+    <string name="dismiss">消失</string>
+    <string name="ensure_delete">删除</string>
+    <string name="exit_app">再按一次退出程序</string>
+    <string name="footer_hint_normal">查看更多</string>
+
+    <string name="hint_start">起始日期</string>
+    <string name="hint_end">结束日期</string>
+    <string name="hint_date">日期</string>
+    <string name="hint_delete">删除该条记录</string>
+    <string name="hint_gas_num">加油量(升)</string>
+    <string name="hint_mileage">行驶里程(公里)</string>
+    <string name="hint_price">单价(元)</string>
+    <string name="hint_remark">备注</string>
+    <string name="hint_total">金额(元)</string>
+    <string name="hint_type">记账类型</string>
+    <string name="item_date">日期</string>
+    <string name="item_mileage">里程</string>
+    <string name="item_price">单价</string>
+    <string name="item_total">总金额</string>
+    <string name="item_type">类型</string>
+    <string name="label_accounting">记账</string>
+    <string name="label_calculate">油耗计算</string>
+    <string name="label_city">设置城市</string>
+    <string name="label_form">分类报表</string>
+    <string name="label_form2">月度报表</string>
+    <string name="label_about">关于</string>
+    <string name="loading_tips">C-Car您的用车助手</string>
+
+    <string name="about">C-Car助手致力于致力于帮助车主计算、统计用车成本，计算油耗等。</string>
+    <string name="about_check">检查更新</string>
+    <string name="about_version">v%s</string>
+    <string name="about_feedback">反馈意见</string>
+    <string name="about_qgroup">QQ群</string>
+    <string name="about_group">官方群：175204840</string>
+    <string name="about_author">关于作者</string>
+    <string name="about_author_name">秋之风铃</string>
+    <string name="about_author_qq">444563258</string>
+    <string name="copy_tips">群号已复制到粘贴板</string>
+    <string name="copy_tips2">作者扣扣已复制到粘贴板</string>
+
+    <string name="mileage_empty">里程不能为空.</string>
+    <string name="oil_empty">加油量不能为空.</string>
+    <string name="price_empty">单价不能为空.</string>
+    <string name="snackbar_reset">重新设置</string>
+    <string name="snackbar_type">请选择记账类型.</string>
+    <string name="title">当前分类：%s</string>
+    <string name="total_empty">金额不能为空.</string>
+
+    <string name="start_end_date_error">起始时间不能大于结束时间.</string>
+
+    <string name="help">帮助</string>
+    <string name="string_help_text">当前应用缺少必要的权限。\n请点击"设置"-"权限"-打开所需权限。\n最后点击两次后退按钮，即可返回。</string>
+    <string name="quit">离开</string>
+    <string name="settings">设置</string>
+
+    <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
+    <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
+    <string name="style_hint">style为数字</string>
+    <string name="error_style_empty">style不能为空</string>
+    <string name="error_alias_empty">alias不能为空</string>
+    <string name="error_tag_empty">tag不能为空</string>
+    <string name="error_tag_gs_empty">格式不对</string>
+    <string name="error_network">网络连接异常,初始化失败 请检查网络！</string>
+    <string name="logining">程序在后台执行, 请查看日志！</string>
+    <string name="setting_su">设置成功</string>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:id="@+id/view"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/info_title_style"
+            android:layout_width="0.0dip"
+            android:layout_height="60.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/item_type" />
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/info_title_style"
+            android:layout_width="0.0dip"
+            android:layout_height="60.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/item_date" />
+
+        <TextView
+            android:id="@+id/total"
+            style="@style/info_title_style"
+            android:layout_width="0.0dip"
+            android:layout_height="60.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/item_total" />
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/info_title_style"
+            android:layout_width="0.0dip"
+            android:layout_height="60.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/item_price" />
+
+        <TextView
+            android:id="@+id/mileage"
+            style="@style/info_title_style"
+            android:layout_width="0.0dip"
+            android:layout_height="60.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/item_mileage" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:layout_below="@+id/view"
+        android:background="#ffe0e0e0" />
+</RelativeLayout>

@@ -1,0 +1,2 @@
+include ':app', ':activeandroid-library', ':datetimepicker-library', ':commonview',
+        ':android-async-http-library', ':Common', ':gamerefresh-library', ':baichuanSDK'
