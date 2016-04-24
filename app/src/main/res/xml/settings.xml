@@ -38,6 +38,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="setting_default_game"
+            android:persistent="true"
+            android:summaryOff="坦克游戏"
+            android:summaryOn="砖块游戏"
+            android:title="设置首页默认游戏，下次生效" />
         <Preference
             android:key="setting_about"
             android:title="关于" />

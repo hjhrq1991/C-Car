@@ -2,6 +2,7 @@ package com.hjhrq1991.car.Activity.SettingsActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -14,6 +15,7 @@ import com.hjhrq1991.car.Constant.CustomConstant;
 import com.hjhrq1991.car.Event.GasSettingChangedEvent;
 import com.hjhrq1991.car.R;
 import com.hjhrq1991.tool.Base.BaseActivity;
+import com.zuck.swipe.hitblockrefresh.view.FunGameFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,6 +47,7 @@ public class SettingsActivity extends BaseActivity {
         private SwitchPreference mSettingUseGB;
         private ListPreference mSettingSecondGas;
         private SwitchPreference mSettingCalculate;
+        private SwitchPreference mSettingDefaultGame;
 
         private Preference mSettingSetCity;
         private Preference mSettingAbout;
@@ -63,9 +66,11 @@ public class SettingsActivity extends BaseActivity {
             mSettingCalculate = (SwitchPreference) findPreference(CustomConstant.SETTINGS_CALCULATE);
             mSettingSetCity = findPreference(CustomConstant.SETTINGS_SET_CITY);
             mSettingAbout = findPreference(CustomConstant.SETTINGS_ABOUT);
+            mSettingDefaultGame = (SwitchPreference) findPreference(CustomConstant.SETTINGS_DEFAULT_GAME);
 
             mSettingUseGB.setOnPreferenceChangeListener(this);
             mSettingSecondGas.setOnPreferenceChangeListener(this);
+            mSettingDefaultGame.setOnPreferenceChangeListener(this);
 
             mSettingSetCity.setOnPreferenceClickListener(this);
             mSettingAbout.setOnPreferenceClickListener(this);
@@ -80,6 +85,14 @@ public class SettingsActivity extends BaseActivity {
                     break;
                 case CustomConstant.SETTINGS_SECOND_GAS:
                     EventBus.getDefault().post(new GasSettingChangedEvent());
+                    break;
+                case CustomConstant.SETTINGS_DEFAULT_GAME:
+                    boolean value = (boolean) newValue;
+                    SharedPreferences sp = getActivity().getSharedPreferences("FunGame",
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putInt("defaultStyle", value ? 0 : 1);
+                    editor.apply();
                     break;
             }
             return true;

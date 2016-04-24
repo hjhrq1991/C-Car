@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -53,7 +54,12 @@ public class FunGameHeader extends FrameLayout {
         mContext = context;
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FunGameHeader);
-        headerType = typedArray.getInt(R.styleable.FunGameHeader_game_type, FunGameFactory.HITBLOCK);
+
+        SharedPreferences sp = mContext.getSharedPreferences("FunGame",
+                Context.MODE_PRIVATE);
+        int defaultStyle = sp.getInt("defaultStyle", FunGameFactory.HITBLOCK);
+
+        headerType = typedArray.getInt(R.styleable.FunGameHeader_game_type, defaultStyle);
         typedArray.recycle();
 
         initView(attrs);

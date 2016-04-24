@@ -6,5 +6,7 @@ buildsystem
 .idea
 build
 gradle
+gradlew
+gradlew.bat
 .DS_Store
 /captures

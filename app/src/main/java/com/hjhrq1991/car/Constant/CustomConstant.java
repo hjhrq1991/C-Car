@@ -81,6 +81,7 @@ public class CustomConstant {
     public static final String SETTINGS_CALCULATE = "setting_calculate";
     public static final String SETTINGS_SET_CITY = "setting_set_city";
     public static final String SETTINGS_ABOUT = "setting_about";
+    public static final String SETTINGS_DEFAULT_GAME = "setting_default_game";
 
     public static final String second_gas_null = "0";
     public static final String second_gas_0 = "1";

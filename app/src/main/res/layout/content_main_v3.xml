@@ -4,7 +4,6 @@
     android:id="@+id/refresh_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:game_type="hit_block_game"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.hjhrq1991.commonview.widget.CommonFooterListView
