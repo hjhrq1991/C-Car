@@ -29,7 +29,6 @@
  -dontwarn com.nineoldandroids.**
  -dontwarn com.baidu.**
  -dontwarn m.framework.**
- -dontwarn com.qoocc.wifi.activity.**
  -dontwarn android.support.**
 
  #阿里各种sdk
@@ -109,6 +108,10 @@
    **[] $VALUES;
    public *;
  }
+
+ #极光推送
+ -dontwarn cn.jpush.**
+ -keep class cn.jpush.** { *; }
 
  #高德-3D 地图
  -keep class com.amap.api.mapcore.**{*;}
