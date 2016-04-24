@@ -105,6 +105,7 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
     private boolean isGasSettingChanged = false;
     private boolean isLoadMore = false;
     private boolean mHasNextPage = false;
+    private boolean isFirst = true;
     private IRequest request;
 
     private String[] mTitle;
@@ -394,7 +395,6 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
 
     @Override
     public void loadFinished(List<ConsumeDB> models) {
-        mRefreshView.finishRefreshing();
         if (models != null && models.size() > 0) {
             mListView.setVisibility(View.VISIBLE);
             if (models.size() < pageSize) {
@@ -416,6 +416,17 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
                 mListView.setVisibility(View.GONE);
             }
             mListView.setState(CommonFooterView.State.HIDE);
+        }
+        if (!isFirst) {
+            //延时3秒执行回滚操作模拟正式网络请求
+            mRefreshView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshView.finishRefreshing();
+                }
+            }, 3 * 1000);
+        } else {
+            isFirst = false;
         }
     }
 
