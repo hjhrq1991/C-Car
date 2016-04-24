@@ -394,6 +394,7 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
 
     @Override
     public void loadFinished(List<ConsumeDB> models) {
+        mRefreshView.finishRefreshing();
         if (models != null && models.size() > 0) {
             mListView.setVisibility(View.VISIBLE);
             if (models.size() < pageSize) {
