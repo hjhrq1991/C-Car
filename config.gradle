@@ -1,12 +1,13 @@
 ext {
     //
     android = [
+            applicationId    : "com.hjhrq1991.car",
             compileSdkVersion: 23,
             buildToolsVersion: "23.0.2",
             minSdkVersion    : 14,
             targetSdkVersion : 23,
-            versionCode      : 10004,
-            versionName      : "1.0.4"
+            versionCode      : 10005,
+            versionName      : "1.0.5"
     ]
 
     library = [
