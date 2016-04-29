@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 //lambda插件
 apply plugin: 'me.tatarka.retrolambda'
+//热修复
+//apply plugin: "cn.jiajixin.nuwa"
 
 android {
 
@@ -128,6 +130,8 @@ dependencies {
     compile rootProject.ext.dependencies.cardview
     compile rootProject.ext.dependencies.umeng_analytics
     compile rootProject.ext.dependencies.MPAndroidChart
+    compile rootProject.ext.dependencies.nuwa
+    compile rootProject.ext.dependencies.nineoldandroids
     debugCompile rootProject.ext.dependencies.debugleakcanary
     releaseCompile rootProject.ext.dependencies.releaseleakcanary
     testCompile rootProject.ext.dependencies.testleakcanary

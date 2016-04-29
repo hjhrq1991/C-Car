@@ -45,6 +45,7 @@ ext {
             materialdialog              : 'me.drakeet.materialdialog:library:1.3.0',
             zxing                       : 'com.google.zxing:core:3.2.1',
             httpclient                  : 'cz.msebera.android:httpclient:4.3.6',
+            nineoldandroids             : 'com.nineoldandroids:library:2.4.0',
             //内存泄露检测工具
             debugleakcanary             : 'com.squareup.leakcanary:leakcanary-android:1.4-beta2',
             releaseleakcanary           : 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2',

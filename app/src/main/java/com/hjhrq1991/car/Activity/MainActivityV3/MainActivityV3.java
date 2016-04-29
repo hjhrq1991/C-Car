@@ -1,5 +1,6 @@
 package com.hjhrq1991.car.Activity.MainActivityV3;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.text.style.UnderlineSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -57,6 +59,7 @@ import com.hjhrq1991.commonview.widget.CommonFooterListView;
 import com.hjhrq1991.commonview.widget.StrokeTextView;
 import com.hjhrq1991.tool.Base.BaseActivity;
 import com.hjhrq1991.tool.Util.TimeUtils;
+import com.nineoldandroids.view.ViewHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.zuck.swipe.hitblockrefresh.view.FunGameRefreshView;
@@ -113,6 +116,14 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
     private String aid = "";
 
     private Controller mController;
+
+    private int lastVisibleItemPosition;
+    private int mAnimatorTime = 500;
+    private ObjectAnimator objectAnimator;
+    private AccelerateDecelerateInterpolator ACCELERATE_DECELERATE = new AccelerateDecelerateInterpolator();
+    private int marginBottom;
+    @Bind(R.id.root)
+    View mRootView;
 
     @Override
     public int getLayoutResource() {
@@ -198,9 +209,34 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
         loadMore();
     }
 
+    private boolean hasMeasured = true;
+
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (firstVisibleItem > lastVisibleItemPosition) {// 上滑
+            if (hasMeasured) {
+                marginBottom = mRootView.getBottom() - mFABtn.getBottom();
+                hasMeasured = false;
+            }
+            animator(mFABtn, mRootView.getBottom() + mFABtn.getHeight());
+        } else if (firstVisibleItem < lastVisibleItemPosition) {// 下滑
+            animator(mFABtn, mRootView.getBottom() - mFABtn.getHeight() - marginBottom);
+        } else {
+            return;
+        }
+        lastVisibleItemPosition = firstVisibleItem;
+    }
 
+    /**
+     * @param view 要执行动画的view
+     * @Description: 动画
+     * @author hjhrq1991 created at 4/27/16 15:00.
+     */
+    void animator(View view, int height) {
+        objectAnimator = ObjectAnimator.ofFloat(view, "y", ViewHelper.getY(view), height);
+        objectAnimator.setDuration(mAnimatorTime);
+        objectAnimator.setInterpolator(ACCELERATE_DECELERATE);
+        objectAnimator.start();
     }
 
     private void alertDialog() {

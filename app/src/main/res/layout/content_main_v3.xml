@@ -10,8 +10,8 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:dividerHeight="0.5dp"
         android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true"
         android:scrollbars="none" />
 
 </com.zuck.swipe.hitblockrefresh.view.FunGameRefreshView>
