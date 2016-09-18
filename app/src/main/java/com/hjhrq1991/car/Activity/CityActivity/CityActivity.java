@@ -16,8 +16,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author hjhrq1991 created at 1/13/16 21 48.
  * @Package com.hjhrq1991.car.Activity.CityActivity
@@ -25,11 +23,8 @@ import butterknife.Bind;
  */
 public class CityActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-    @Bind(R.id.prov)
     Spinner mProv;
-    @Bind(R.id.city)
     Spinner mCity;
-    @Bind(R.id.area)
     Spinner mArea;
     private CityAdapter mProvAdapter;
     private CityAdapter mCityAdapter;
@@ -48,6 +43,7 @@ public class CityActivity extends BaseActivity implements AdapterView.OnItemSele
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initView();
         aid = SharePreferenceUtil.getCity(this);
         if (!TextUtils.isEmpty(aid) && aid.length() >= 7) {
             pid = aid.substring(0, 5);
@@ -59,6 +55,12 @@ public class CityActivity extends BaseActivity implements AdapterView.OnItemSele
         mProv.setOnItemSelectedListener(this);
         mCity.setOnItemSelectedListener(this);
         mArea.setOnItemSelectedListener(this);
+    }
+
+    private void initView() {
+        mArea = (Spinner) findViewById(R.id.area);
+        mCity = (Spinner) findViewById(R.id.city);
+        mProv = (Spinner) findViewById(R.id.prov);
     }
 
     private void init() {

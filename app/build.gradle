@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 //lambda插件
 apply plugin: 'me.tatarka.retrolambda'
+
 //热修复
 //apply plugin: "cn.jiajixin.nuwa"
 
@@ -121,9 +122,13 @@ dependencies {
     compile project(':Common')
     compile project(':activeandroid-library')
     compile project(':commonview')
+    compile project(':gamerefresh-library')
+    compile project(':baichuanSDK')
     compile project(':datetimepicker-library')
     compile files('libs/ApiStoreSDK1.0.4.jar')
     compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile(name: 'PeekAndPop', ext: 'aar')
+
     compile rootProject.ext.dependencies.appcompat_v7_23
     compile rootProject.ext.dependencies.design
     compile rootProject.ext.dependencies.recyclerview
@@ -132,16 +137,17 @@ dependencies {
     compile rootProject.ext.dependencies.MPAndroidChart
     compile rootProject.ext.dependencies.nuwa
     compile rootProject.ext.dependencies.nineoldandroids
-    debugCompile rootProject.ext.dependencies.debugleakcanary
-    releaseCompile rootProject.ext.dependencies.releaseleakcanary
-    testCompile rootProject.ext.dependencies.testleakcanary
+//    debugCompile rootProject.ext.dependencies.debugleakcanary
+//    releaseCompile rootProject.ext.dependencies.releaseleakcanary
+//    testCompile rootProject.ext.dependencies.testleakcanary
 
-    compile files('libs/AMap_2DMap_V2.8.1_20160202.jar')
-    compile files('libs/AMap_Location_V2.4.0_20160308.jar')
-    compile project(':gamerefresh-library')
-    compile project(':baichuanSDK')
+//    compile files('libs/AMap_2DMap_V2.8.1_20160202.jar')
+//    compile files('libs/AMap_Location_V2.4.0_20160308.jar')
 }
 
 repositories {
     maven { url "https://jitpack.io" }
+    flatDir {
+        dirs 'libs'
+    }
 }

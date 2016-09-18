@@ -52,7 +52,12 @@ public class CommonFooterListView extends ListView {
      * 设置footer view的点击事件
      */
     public void setOnFooterClickListener(@Nullable CommonFooterView.OnFooterClickListener onFooterClickListener) {
-        mLoadingFooter.setOnFooterClickListener(onFooterClickListener);
+        if (mLoadingFooter != null)
+            mLoadingFooter.setOnFooterClickListener(onFooterClickListener);
+    }
+
+    public ListView getListView() {
+        return this;
     }
 
 }

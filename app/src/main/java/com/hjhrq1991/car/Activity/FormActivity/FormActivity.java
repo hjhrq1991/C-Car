@@ -40,29 +40,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * @author hjhrq1991 created at 2/18/16 10 47.
  * @Package com.hjhrq1991.car.Activity.FormActivity
  * @Description:
  */
-public class FormActivity extends BaseActivity implements OnloadFinishList, DatePickerDialog.OnDateSetListener {
+public class FormActivity extends BaseActivity implements OnloadFinishList, DatePickerDialog.OnDateSetListener, View.OnClickListener {
 
-    @Bind(R.id.chart_pie)
     PieChart mPieChart;
-
-    @Bind(R.id.chart_bar)
     BarChart mBarChart;
-
-    @Bind(R.id.date_start)
     EditText mStartEdit;
-
-    @Bind(R.id.date_end)
     EditText mEndEdit;
-
-    @Bind(R.id.empty_tv)
     TextView mEmptyView;
 
     private IRequest request;
@@ -86,14 +74,24 @@ public class FormActivity extends BaseActivity implements OnloadFinishList, Date
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        initViews();
         mType = getResources().getStringArray(R.array.type);
 
         request = new RequestImpl();
         request.loadItem(this, mChartType);
     }
 
-    @OnClick({R.id.view_start, R.id.view_end})
+    private void initViews() {
+        mPieChart = (PieChart) findViewById(R.id.chart_pie);
+        mBarChart = (BarChart) findViewById(R.id.chart_bar);
+        mStartEdit = (EditText) findViewById(R.id.date_start);
+        mEndEdit = (EditText) findViewById(R.id.date_end);
+        mEmptyView = (TextView) findViewById(R.id.empty_tv);
+        findViewById(R.id.view_start).setOnClickListener(this);
+        findViewById(R.id.view_end).setOnClickListener(this);
+    }
+
+    @Override
     public void onClick(View v) {
         String date;
         switch (v.getId()) {

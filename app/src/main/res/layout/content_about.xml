@@ -86,14 +86,6 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:scaleType="fitXY"
-            android:src="@drawable/setting_arrow" />
     </RelativeLayout>
 
     <View

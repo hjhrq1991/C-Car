@@ -9,6 +9,7 @@ import com.hjhrq1991.car.Base.Command;
 import com.hjhrq1991.car.Constant.CustomConstant;
 import com.hjhrq1991.car.Event.WeatherEvent;
 import com.hjhrq1991.car.R;
+import com.hjhrq1991.car.Util.LogUtil;
 import com.hjhrq1991.car.db.CacheDB;
 import com.hjhrq1991.tool.Util.TimeUtils;
 
@@ -31,7 +32,7 @@ public class WeatherBusiness extends Command {
         ApiStoreSDK.execute(url, ApiStoreSDK.GET, parameters, new ApiCallBack() {
             @Override
             public void onSuccess(int status, String responseString) {
-//                System.out.println("hrq-----" + status + "---" + responseString);
+                LogUtil.logi("Result", status + "===" + responseString);
                 WeatherEvent weatherEvent = new WeatherEvent(responseString);
 
                 if (weatherEvent.isSuccess()) {

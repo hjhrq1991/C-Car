@@ -23,8 +23,6 @@ import com.umeng.analytics.MobclickAgent;
 import java.math.BigDecimal;
 import java.util.List;
 
-import butterknife.Bind;
-
 /**
  * @author hjhrq1991 created at 1/10/16 18 40.
  * @Package com.hjhrq1991.car.Activity.CalculateActivity
@@ -32,34 +30,15 @@ import butterknife.Bind;
  */
 public class CalculateActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
-    @Bind(R.id.title_tv)
     TextView mTitleTv;
-
-    @Bind(R.id.total_tv)
     TextView mTotalTv;
-
-    @Bind(R.id.mileage_tv)
     TextView mMileageTv;
-
-    @Bind(R.id.oil_tv)
     TextView mOilTv;
-
-    @Bind(R.id.calculate_tv)
     TextView mCalculateTv;
-
-    @Bind(R.id.average_price_tv)
     TextView mAveragePriceTv;
-
-    @Bind(R.id.spend_tv)
     TextView mSpendTv;
-
-    @Bind(R.id.calculate_type_tv)
     TextView mCalculateTypeTv;
-
-    @Bind(R.id.calculate_type)
     RadioGroup mCalculateType;
-
-    @Bind(R.id.empty_tv)
     TextView mEmptyView;
 
     private List<ConsumeDB> list;//
@@ -78,7 +57,22 @@ public class CalculateActivity extends BaseActivity implements RadioGroup.OnChec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
         loadData();
+    }
+
+    private void initView() {
+        mTitleTv = (TextView) findViewById(R.id.title_tv);
+        mTotalTv = (TextView) findViewById(R.id.total_tv);
+        mMileageTv = (TextView) findViewById(R.id.mileage_tv);
+        mOilTv = (TextView) findViewById(R.id.oil_tv);
+        mCalculateTv = (TextView) findViewById(R.id.calculate_tv);
+        mAveragePriceTv = (TextView) findViewById(R.id.average_price_tv);
+        mSpendTv = (TextView) findViewById(R.id.spend_tv);
+        mCalculateTypeTv = (TextView) findViewById(R.id.calculate_type_tv);
+        mEmptyView = (TextView) findViewById(R.id.empty_tv);
+        mCalculateType = (RadioGroup) findViewById(R.id.calculate_type);
+
     }
 
     private void loadData() {

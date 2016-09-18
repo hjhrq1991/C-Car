@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hjhrq1991.car">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -22,20 +24,13 @@
     <!-- Required -->
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!-- Optional. Required for location feature -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
@@ -49,8 +44,15 @@
         android:name=".Application.CarApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:label="@string/name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
+
+        <!-- name值必须为"android.3dtouch.launcher_menu"-->
+        <meta-data
+            android:name="android.3dtouch.launcher_menu"
+            android:resource="@xml/launcher_menu" />
 
         <!-- 数据库 -->
         <meta-data
@@ -58,7 +60,7 @@
             android:value="Car.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="4" />
+            android:value="5" />
 
         <!-- 友盟统计 -->
         <meta-data
@@ -82,7 +84,7 @@
 
         <activity
             android:name=".Activity.LoadingActivity.LoadingActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Splash.Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,18 +93,48 @@
         </activity>
 
         <activity
+            android:name=".Activity.PermissionsActivity.PermissionsActivity"
+            android:theme="@style/Splash.Theme" />
+
+        <activity
             android:name=".Activity.MainActivityV3.MainActivityV3"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".Activity.DetailActivity.DetailActivity"
             android:label="@string/label_accounting"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <!-- 用于接收压力触控的过滤器-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.hjhrq1991.car"
+                    android:path="/a1"
+                    android:scheme="flyme_3dtouch" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".Activity.CalculateActivity.CalculateActivity"
             android:label="@string/label_calculate"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <!-- 用于接收压力触控的过滤器-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.hjhrq1991.car"
+                    android:path="/a2"
+                    android:scheme="flyme_3dtouch" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".Activity.CityActivity.CityActivity"
@@ -122,10 +154,6 @@
         <activity
             android:name=".Activity.AboutActivity.AboutActivity"
             android:label="@string/label_about"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".Activity.PermissionsActivity.PermissionsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
@@ -209,7 +237,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
         <!-- Required SDK核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 

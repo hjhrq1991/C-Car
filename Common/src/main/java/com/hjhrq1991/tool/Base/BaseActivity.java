@@ -1,6 +1,8 @@
 package com.hjhrq1991.tool.Base;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +17,7 @@ import com.hannesdorfmann.swipeback.transformer.SlideSwipeBackTransformer;
 import com.hjhrq1991.tool.AppManager;
 import com.hjhrq1991.tool.R;
 
-import butterknife.ButterKnife;
+import java.lang.ref.WeakReference;
 
 /**
  * Activity基类，不允许使用getSerializableExtra
@@ -30,6 +32,8 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected TextView toolbar_title;
 
     protected ImageView toolbar_back;
+
+    protected MyHandler handler = new MyHandler(this);
 
     /**
      * 获取主界面的Layout
@@ -64,7 +68,6 @@ public abstract class BaseActivity extends ActionBarActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
 
         View v = findViewById(R.id.toolbar);
         if (v != null) {
@@ -128,6 +131,31 @@ public abstract class BaseActivity extends ActionBarActivity {
         }
     }
 
+    public static class MyHandler extends Handler {
+        WeakReference<BaseActivity> activityWeakReference;
+
+        public MyHandler(BaseActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (activityWeakReference != null && activityWeakReference.get() != null) {
+                activityWeakReference.get().handleMessage(msg);
+            }
+        }
+
+        public void onDestroy() {
+            if (activityWeakReference != null) {
+                activityWeakReference.clear();
+                activityWeakReference = null;
+            }
+        }
+    }
+
+    public void handleMessage(Message msg) {
+
+    }
 
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
@@ -159,9 +187,11 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
-        ButterKnife.unbind(this);
+        if (handler != null) {
+            handler.onDestroy();
+        }
+//        ButterKnife.unbind(this);
         appManager.finishActivity(this);
     }
 }

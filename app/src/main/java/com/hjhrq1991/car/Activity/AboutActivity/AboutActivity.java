@@ -18,17 +18,13 @@ import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 /**
  * @author hjhrq1991 created at 2/19/16 15 42.
  * @Package com.hjhrq1991.car.Activity.AboutActivity
  * @Description:
  */
-public class AboutActivity extends BaseActivity implements UmengUpdateListener {
+public class AboutActivity extends BaseActivity implements UmengUpdateListener, View.OnClickListener {
 
-    @Bind(R.id.about_version)
     TextView mVersionTv;
 
     @Override
@@ -40,11 +36,21 @@ public class AboutActivity extends BaseActivity implements UmengUpdateListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mVersionTv.setText(String.format(getString(R.string.about_version), AppUtil.getVersionName(this)));
+        initView();
         UmengUpdateAgent.setUpdateListener(this);
     }
 
-    @OnClick({R.id.about_check, R.id.about_group, R.id.about_author, R.id.about_feedback})
+    private void initView() {
+        findViewById(R.id.about_check).setOnClickListener(this);
+        findViewById(R.id.about_group).setOnClickListener(this);
+        findViewById(R.id.about_author).setOnClickListener(this);
+        findViewById(R.id.about_feedback).setOnClickListener(this);
+
+        mVersionTv = (TextView) findViewById(R.id.about_version);
+        mVersionTv.setText(String.format(getString(R.string.about_version), AppUtil.getVersionName(this)));
+    }
+
+    @Override
     public void onClick(View v) {
         ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         switch (v.getId()) {

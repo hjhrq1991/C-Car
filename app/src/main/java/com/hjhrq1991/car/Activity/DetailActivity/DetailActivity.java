@@ -2,6 +2,7 @@ package com.hjhrq1991.car.Activity.DetailActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,30 +12,32 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.hjhrq1991.car.Constant.CustomConstant;
 import com.hjhrq1991.car.Event.DataChangeEvent;
 import com.hjhrq1991.car.Model.SelectModel;
 import com.hjhrq1991.car.R;
 import com.hjhrq1991.car.Util.DatePickerUtils;
+import com.hjhrq1991.car.Util.LogUtil;
 import com.hjhrq1991.car.Util.SharePreferenceUtil;
 import com.hjhrq1991.car.View.PopUpWindow.PopUpWin;
 import com.hjhrq1991.car.db.ConsumeDB;
 import com.hjhrq1991.tool.Base.BaseActivity;
 import com.hjhrq1991.tool.Util.TimeUtils;
+import com.meizu.forcetouch.PeekAndPop.PeekAndPopHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * @author hjhrq1991 created at 1/10/16 10 19.
@@ -42,25 +45,18 @@ import butterknife.OnClick;
  * @Description:
  */
 public class DetailActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener
-        , PopUpWin.OnPopWindowListener {
+        , PopUpWin.OnPopWindowListener, View.OnClickListener {
 
-    @Bind(R.id.total_layout)
     TextInputLayout mTotalLayout;
-    @Bind(R.id.price_layout)
     TextInputLayout mPriceLayout;
-    @Bind(R.id.mileage_layout)
     TextInputLayout mMileageLayout;
-    @Bind(R.id.type_layout)
     TextInputLayout mTypeLayout;
-    @Bind(R.id.num_layout)
     TextInputLayout mNumLayout;
-    @Bind(R.id.date_layout)
     TextInputLayout mDateLayout;
-    @Bind(R.id.remark_layout)
     TextInputLayout mRemarkLayout;
-
-    @Bind(R.id.delete)
+    RelativeLayout rootview;
     Button mDeleteBtn;
+    View peekView;
 
     private long id;
 
@@ -78,9 +74,39 @@ public class DetailActivity extends BaseActivity implements DatePickerDialog.OnD
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initViews();
         isAnimAndSwipeBack = true;
         mType = getResources().getStringArray(R.array.type);
         init();
+        rootview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                rootview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                PeekAndPopHelper.PeekAndPopConfig config = new PeekAndPopHelper.PeekAndPopConfig();
+                config.mPeekView = new WeakReference<>(peekView);
+                //这里应用可以根据实际需求来定制裁剪的区域
+                config.mPeekRect = new Rect(rootview.getLeft(), rootview.getTop(), rootview.getRight(),
+                        rootview.getBottom());
+                PeekAndPopHelper.notifyActivityPeekReady(DetailActivity.this, config);
+            }
+        });
+    }
+
+    private void initViews() {
+        mTotalLayout = (TextInputLayout) findViewById(R.id.total_layout);
+        mPriceLayout = (TextInputLayout) findViewById(R.id.price_layout);
+        mMileageLayout = (TextInputLayout) findViewById(R.id.mileage_layout);
+        mTypeLayout = (TextInputLayout) findViewById(R.id.type_layout);
+        mNumLayout = (TextInputLayout) findViewById(R.id.num_layout);
+        mDateLayout = (TextInputLayout) findViewById(R.id.date_layout);
+        mRemarkLayout = (TextInputLayout) findViewById(R.id.remark_layout);
+        mDeleteBtn = (Button) findViewById(R.id.delete);
+        peekView = findViewById(R.id.root);
+        rootview = (RelativeLayout) findViewById(R.id.rootview);
+
+        findViewById(R.id.view_type).setOnClickListener(this);
+        findViewById(R.id.view_date).setOnClickListener(this);
+        findViewById(R.id.delete).setOnClickListener(this);
     }
 
     private void init() {
@@ -132,9 +158,7 @@ public class DetailActivity extends BaseActivity implements DatePickerDialog.OnD
 
     /**
      * 自动更新加油量
-     *
-     * @TODO 根据设定是否自动更新
-     */
+     **/
     private void autoUpdata() {
         String totalString = mTotalLayout.getEditText().getText().toString().trim();
         String priceString = mPriceLayout.getEditText().getText().toString().trim();
@@ -161,7 +185,6 @@ public class DetailActivity extends BaseActivity implements DatePickerDialog.OnD
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -169,7 +192,7 @@ public class DetailActivity extends BaseActivity implements DatePickerDialog.OnD
         return true;
     }
 
-    @OnClick({R.id.view_type, R.id.view_date, R.id.delete})
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.view_type:

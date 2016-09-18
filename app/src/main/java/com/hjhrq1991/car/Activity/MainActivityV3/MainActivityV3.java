@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.UnderlineSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
@@ -49,6 +51,7 @@ import com.hjhrq1991.car.R;
 import com.hjhrq1991.car.Util.CityUtil;
 import com.hjhrq1991.car.Util.JpushUtil;
 import com.hjhrq1991.car.Util.LocationUtil;
+import com.hjhrq1991.car.Util.LogUtil;
 import com.hjhrq1991.car.Util.SharePreferenceUtil;
 import com.hjhrq1991.car.View.PopUpWindow.PopUpWin;
 import com.hjhrq1991.car.db.CacheDB;
@@ -59,6 +62,8 @@ import com.hjhrq1991.commonview.widget.CommonFooterListView;
 import com.hjhrq1991.commonview.widget.StrokeTextView;
 import com.hjhrq1991.tool.Base.BaseActivity;
 import com.hjhrq1991.tool.Util.TimeUtils;
+import com.meizu.forcetouch.PeekAndPop.PeekAndPopHelper;
+import com.meizu.forcetouch.PeekAndPop.PeekAndPopUtil;
 import com.nineoldandroids.view.ViewHelper;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -68,28 +73,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.OnClick;
-
 public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemClickListener, OnloadFinishListener, PopUpWin.OnPopWindowListener,
-        LocationUtil.OnLocationListener, FunGameRefreshView.FunGameRefreshListener, AbsListView.OnScrollListener, CommonFooterView.OnFooterClickListener {
+        LocationUtil.OnLocationListener, FunGameRefreshView.FunGameRefreshListener, AbsListView.OnScrollListener, CommonFooterView.OnFooterClickListener,
+        View.OnClickListener {
 
-    @Bind(R.id.refresh_view)
     FunGameRefreshView mRefreshView;
-
-    @Bind(R.id.list_view)
     CommonFooterListView mListView;
-
-    @Bind(R.id.toolbar)
     Toolbar toolbar;
-
-    @Bind(R.id.title)
     TextView mTitleTv;
-
-    @Bind(R.id.fab)
+    View mRootView;
     FloatingActionButton mFABtn;
 
     TextView mTmpTv;
@@ -122,8 +119,6 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
     private ObjectAnimator objectAnimator;
     private AccelerateDecelerateInterpolator ACCELERATE_DECELERATE = new AccelerateDecelerateInterpolator();
     private int marginBottom;
-    @Bind(R.id.root)
-    View mRootView;
 
     @Override
     public int getLayoutResource() {
@@ -133,6 +128,7 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initViews();
         setSupportActionBar(toolbar);
 
         if (!EventBus.getDefault().isRegistered(this))
@@ -179,6 +175,116 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
         UmengUpdateAgent.update(this);
 
         JpushUtil.setJPush(getApplicationContext());
+
+//        initPeekAndPop();
+    }
+
+    private void initViews() {
+        mRefreshView = (FunGameRefreshView) findViewById(R.id.refresh_view);
+        mListView = (CommonFooterListView) findViewById(R.id.list_view);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTitleTv = (TextView) findViewById(R.id.title);
+        mRootView = findViewById(R.id.root);
+        mFABtn = (FloatingActionButton) findViewById(R.id.fab);
+
+        findViewById(R.id.fab).setOnClickListener(this);
+        findViewById(R.id.title).setOnClickListener(this);
+    }
+
+    /**
+     * meizu 3dPress
+     */
+    private void initPeekAndPop() {
+        PeekAndPopHelper.PeekAndPopConfig config = new PeekAndPopHelper.PeekAndPopConfig();
+        //即将启动的是Activity
+        config.mPeekType = PeekAndPopHelper.PeekAndPopConfig.TYPE_ACTIVITY;
+        ///mListView即需要响应压力触控的view，PeekAndPop库会监听此view上的压力触控，一旦压力触控启动了就会回调下面listener中的peek方法
+        PeekAndPopHelper.enablePeekAndPop(mListView.getListView(), config, new PeekAndPopHelper.PeekAndPopListener() {
+            private int mCurrentPeekItemPosition = -1;
+            private View mForceTouchView;
+
+            /**
+             * 在检测到当前压力值超过阈值时调用，暗示压力触控开始了
+             * @param event
+             * @param config
+             * @return 返回true表示要响应压力触控，否则就不响应压力触控
+             */
+            @Override
+            public boolean peek(MotionEvent event, PeekAndPopHelper.PeekAndPopConfig config) {
+
+                View forceTouchView = PeekAndPopUtil.getForceTouchViewFromAbsListView(mListView.getListView(), event);
+
+                if (forceTouchView == null) {
+                    return false;
+                }
+
+                int[] location = new int[2];
+                forceTouchView.getLocationOnScreen(location);
+                Rect rect = new Rect(location[0], location[1],
+                        location[0] + forceTouchView.getWidth(), location[1] + forceTouchView.getHeight());
+                //此处一定要传入view的全局location，通过上面的getLocationOnScreen()
+                config.mConfirmRect = rect;//必须要的
+                config.mConfirmBitmap = PeekAndPopUtil.getBitmapFromView(forceTouchView);//必须要的
+
+                mCurrentPeekItemPosition = mListView.getPositionForView(forceTouchView);
+                mForceTouchView = forceTouchView;
+                if (mAdapter != null) {
+                    if (mCurrentPeekItemPosition-- <= 0) return false;
+                    ConsumeDB consumeDB = mAdapter.getItem(mCurrentPeekItemPosition);
+
+                    if (consumeDB.type != CustomConstant.type_title) {
+                        DetailActivity.launch(MainActivityV3.this, consumeDB.getId());
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            /**
+             * 预览菜单的点击回调
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
+            @Override
+            public void onPeekMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+
+            /**
+             * 取消重压预览的回调
+             */
+            @Override
+            public void cancel() {
+                PeekAndPopHelper.cancelForActivityPeek();//必须调用
+            }
+
+            /**
+             * 从预览进入最终全屏时的回调
+             * @param peekView
+             * @return
+             */
+            @Override
+            public boolean pop(View peekView) {
+                return true;
+            }
+
+            /**
+             * 预览下拉到可以更新类似“已读”或者“未读”的状态时调用的
+             */
+            @Override
+            public void onPulldownViewChanged() {
+                if (mAdapter != null) {
+                    if (mCurrentPeekItemPosition-- <= 0) return;
+                    ConsumeDB consumeDB = mAdapter.getItem(mCurrentPeekItemPosition);
+
+                    if (consumeDB.type != CustomConstant.type_title) {
+                        DetailActivity.launch(MainActivityV3.this, consumeDB.getId());
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -217,10 +323,13 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
             if (hasMeasured) {
                 marginBottom = mRootView.getBottom() - mFABtn.getBottom();
                 hasMeasured = false;
+                animator(mFABtn, mRootView.getBottom() + mFABtn.getHeight());
             }
-            animator(mFABtn, mRootView.getBottom() + mFABtn.getHeight());
         } else if (firstVisibleItem < lastVisibleItemPosition) {// 下滑
-            animator(mFABtn, mRootView.getBottom() - mFABtn.getHeight() - marginBottom);
+            if (!hasMeasured) {
+                hasMeasured = true;
+                animator(mFABtn, mRootView.getBottom() - mFABtn.getHeight() - marginBottom);
+            }
         } else {
             return;
         }
@@ -276,8 +385,16 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
 
     @Override
     public void locationSuccess(AMapLocation aMapLocation) {
-        System.out.println("hrq-----" + aMapLocation.getCity());
+        LogUtil.logi("hrq====", aMapLocation.getCity());
         mLocationUtil.stopLocation();
+//        String prov = aMapLocation.getProvince();
+//        String city = aMapLocation.getCity();
+//        if (prov.length() > 0 && "省".equals(city.substring(prov.length() - 1, prov.length()))) {
+//            prov = city.substring(0, prov.length() - 1);
+//        }
+//        mLocationTv.setText("当前城市：" + city);
+//        mController.getOilPrice(prov);
+//        mController.getWeather(city);
     }
 
     private void initView() {
@@ -322,9 +439,16 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
         }
     }
 
-    @OnClick(R.id.fab)
-    public void onClick() {
-        DetailActivity.launch(this, -1);
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fab:
+                DetailActivity.launch(this, -1);
+                break;
+            case R.id.title:
+                showWindow(mTitleTv, mTitle, view.getId());
+                break;
+        }
     }
 
     private void loadData() {
@@ -505,12 +629,9 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
         if (position-- <= 0) return;
         ConsumeDB consumeDB = mAdapter.getItem(position);
 
-        DetailActivity.launch(this, consumeDB.getId());
-    }
-
-    @OnClick(R.id.title)
-    public void onTitleClick(View v) {
-        showWindow(mTitleTv, mTitle, v.getId());
+        if (consumeDB.type != CustomConstant.type_title) {
+            DetailActivity.launch(this, consumeDB.getId());
+        }
     }
 
     private void showWindow(View v, String[] str, int type) {
@@ -569,10 +690,10 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
         if (!toastVisible) {
             Toast.makeText(this, getString(R.string.exit_app), Toast.LENGTH_SHORT).show();
             toastVisible = true;
-            mExitHandler.postDelayed(mCallBack, 2000);
+            handler.postDelayed(mCallBack, 2000);
             return;
         }
-        mExitHandler.removeCallbacks(mCallBack);
+        handler.removeCallbacks(mCallBack);
         super.onBackPressed();
         finish();
         System.exit(0);
@@ -584,7 +705,6 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
      * 返回键监听
      */
     private boolean toastVisible = false;
-    private Handler mExitHandler = new Handler();
     private Runnable mCallBack = new Runnable() {
         public void run() {
             toastVisible = false;
@@ -618,5 +738,11 @@ public class MainActivityV3 extends BaseActivity implements AdapterView.OnItemCl
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+        super.dump(prefix, fd, writer, args);
+        PeekAndPopHelper.dump(prefix, fd, writer, args);
     }
 }

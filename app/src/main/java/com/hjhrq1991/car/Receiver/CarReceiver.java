@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.hjhrq1991.car.Activity.CityActivity.CityActivity;
-import com.hjhrq1991.car.Activity.MainActivity.MainActivityV2;
+import com.hjhrq1991.car.Activity.MainActivityV3.MainActivityV3;
 import com.hjhrq1991.car.Activity.SettingsActivity.SettingsActivity;
 import com.hjhrq1991.car.Constant.CustomConstant;
 import com.hjhrq1991.car.Util.AppUtil;
@@ -80,7 +80,7 @@ public class CarReceiver extends BroadcastReceiver {
 
                             if (verisonCode > oldCode) {
                                 //这里进行版本升级
-                                Intent intent1 = new Intent(context, MainActivityV2.class);
+                                Intent intent1 = new Intent(context, MainActivityV3.class);
                                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(intent1);
                             }

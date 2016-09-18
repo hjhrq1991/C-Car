@@ -1,17 +1,14 @@
 package com.hjhrq1991.car.Activity.LoadingActivity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 
-import com.hjhrq1991.car.Activity.MainActivity.MainActivityV2;
 import com.hjhrq1991.car.Activity.MainActivityV3.MainActivityV3;
 import com.hjhrq1991.car.Activity.PermissionsActivity.PermissionsActivity;
 import com.hjhrq1991.car.R;
-import com.hjhrq1991.car.Util.AppUtil;
+import com.hjhrq1991.car.Util.LogUtil;
 import com.hjhrq1991.car.Util.PermissionsChecker;
 import com.hjhrq1991.tool.Base.BaseActivity;
 
@@ -25,7 +22,7 @@ public class LoadingActivity extends BaseActivity {
     private static final int REQUEST_CODE = 0; // 请求码
 
     // 所需的全部权限
-    static final String[] PERMISSIONS = new String[]{
+    static final String[] PERMISSIONS = {
             Manifest.permission.INTERNET,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -34,7 +31,8 @@ public class LoadingActivity extends BaseActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
-            Manifest.permission.CHANGE_WIFI_STATE
+            Manifest.permission.CHANGE_WIFI_STATE,
+            Manifest.permission.SYSTEM_ALERT_WINDOW,
     };
 
     private PermissionsChecker mPermissionsChecker; // 权限检测器
@@ -53,7 +51,7 @@ public class LoadingActivity extends BaseActivity {
     }
 
     protected void checkPermissions() {
-        System.out.println("hrq-----api:" + Build.VERSION.SDK_INT);
+        LogUtil.logi("hrq====", "" + Build.VERSION.SDK_INT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mPermissionsChecker = new PermissionsChecker(this);
             // 缺少权限时, 进入权限配置页面
@@ -63,10 +61,20 @@ public class LoadingActivity extends BaseActivity {
             }
         }
 
-        new Handler().postDelayed(() -> {
-            MainActivityV3.launch(this);
+        handler.postDelayed(mCallBack, 2000);
+    }
+
+    private Runnable mCallBack = new Runnable() {
+        public void run() {
+            MainActivityV3.launch(LoadingActivity.this);
             finish();
-        }, 3000);
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+        handler.removeCallbacks(mCallBack);
+        super.onBackPressed();
     }
 
     private void startPermissionsActivity() {

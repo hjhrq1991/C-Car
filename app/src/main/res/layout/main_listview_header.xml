@@ -94,7 +94,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:padding="10.0dip"
-            android:text="当前城市：北京"
+            android:text="当前城市：--"
             android:textColor="@color/white"
             android:textSize="16.0sp" />
 
